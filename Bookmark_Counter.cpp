@@ -24,14 +24,14 @@ std::string get_current_date()
 // TODO: Function to read last line of existing csv file.
 int calculate_difference(int current_bookmark_total_input)
 {
+    // Function uses: <iostream>, <fstream>, <string>
+
     std::ifstream input_file;
-    std::cout << "[!] Opening bookmark_record.csv for reading;" << "\n";
     input_file.open("bookmark_record.csv");
     std::string input_file_line;
     std::string last_input_line;
     while (std::getline(input_file, input_file_line))
     {
-        std::cout << input_file_line << "\n";
         last_input_line = input_file_line;
     }
     input_file.close();
@@ -54,6 +54,8 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         std::cout << "[+] Opened bookmark_record.csv successfully;" << "\n";
         // Adding in column headings.
         output_file << "Date" << "," << "Current Total" << "," << "Difference" << "\n";
+        std::cout << "[+] Adding new entry:" << "\n";
+        std::cout << current_date << "|" << current_bookmark_total_input << "|" << 0 << "\n";
         // Comma used as seperator in csv files.
         output_file << current_date << "," << current_bookmark_total_input << "," << 0 << "\n";
         output_file.close();
@@ -63,6 +65,8 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         // std::ios::app informs program to append and not to overwrite.
         output_file.open("bookmark_record.csv", std::ios::app);
         std::cout << "[+] Opened bookmark_record.csv successfully;" << "\n";
+        std::cout << "[+] Adding new entry:" << "\n";
+        std::cout << current_date << "|" << current_bookmark_total_input << "|" << calculate_difference(current_bookmark_total_input) << "\n";
         // Comma used as seperator in csv files.
         output_file << current_date << "," << current_bookmark_total_input << "," << calculate_difference(current_bookmark_total_input) << "\n";
         output_file.close();
