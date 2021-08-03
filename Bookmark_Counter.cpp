@@ -7,6 +7,8 @@
 
 #pragma warning(disable:4996);
 
+std::vector<std::string> temp_report = {};
+
 // TODO: Function to get current date.
 std::string get_current_date()
 {
@@ -33,6 +35,7 @@ int calculate_difference(int current_bookmark_total_input)
     while (std::getline(input_file, input_file_line))
     {
         last_input_line = input_file_line;
+        temp_report.push_back(input_file_line);
     }
     input_file.close();
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
@@ -45,8 +48,10 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
 {
     // Function uses: <iostream>, <fstream>, <filesystem>
 
+    int difference = 0;
     // output file stream allows you to write contents to a file.
     std::ofstream output_file;
+    // TODO: Get location of bookmark record csv here.
     if (std::filesystem::exists("bookmark_record.csv") == false)
     {
         std::cout << "[!] Creating new bookmark_record.csv;" << "\n";
@@ -55,9 +60,9 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         // Adding in column headings.
         output_file << "Date" << "," << "Current Total" << "," << "Difference" << "\n";
         std::cout << "[+] Adding new entry:" << "\n";
-        std::cout << current_date << "|" << current_bookmark_total_input << "|" << 0 << "\n";
+        std::cout << current_date << "|" << current_bookmark_total_input << "|" << difference << "\n";
         // Comma used as seperator in csv files.
-        output_file << current_date << "," << current_bookmark_total_input << "," << 0 << "\n";
+        output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
         output_file.close();
     }
     else
@@ -66,9 +71,10 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         output_file.open("bookmark_record.csv", std::ios::app);
         std::cout << "[+] Opened bookmark_record.csv successfully;" << "\n";
         std::cout << "[+] Adding new entry:" << "\n";
-        std::cout << current_date << "|" << current_bookmark_total_input << "|" << calculate_difference(current_bookmark_total_input) << "\n";
+        difference = calculate_difference(current_bookmark_total_input);
+        std::cout << current_date << "|" << current_bookmark_total_input << "|" << difference << "\n";
         // Comma used as seperator in csv files.
-        output_file << current_date << "," << current_bookmark_total_input << "," << calculate_difference(current_bookmark_total_input) << "\n";
+        output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
         output_file.close();
     }
 }
@@ -76,9 +82,17 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
 int main()
 {
     int current_bookmark_total_input = 0;
-    std::cout << "Enter current total: " << "\n";
+    // TODO: Need input validation check here.
+    std::cout << "Enter current total: ";
     std::cin >> current_bookmark_total_input;
     write_to_csv(get_current_date(), current_bookmark_total_input);
+    std::cout << "\n";
+    // Print all existing rows.
+    // TODO: Only show 20 most recent entries.
+    for (int i = 0; i < 20; i++)
+    {
+        std::cout << temp_report[(temp_report.size() - 20) + i] << "\n";
+    }
 }
 
 // Each day, enter total number of bookmarks after each session of cleaning bookmarks.
