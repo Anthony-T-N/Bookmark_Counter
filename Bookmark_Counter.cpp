@@ -63,6 +63,7 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         std::cout << current_date << "|" << current_bookmark_total_input << "|" << difference << "\n";
         // Comma used as seperator in csv files.
         output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
+        temp_report.push_back(current_date + "," + std::to_string(current_bookmark_total_input) + "," + std::to_string(difference));
         output_file.close();
     }
     else
@@ -75,6 +76,7 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         std::cout << current_date << "|" << current_bookmark_total_input << "|" << difference << "\n";
         // Comma used as seperator in csv files.
         output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
+        temp_report.push_back(current_date + "," + std::to_string(current_bookmark_total_input) + "," + std::to_string(difference));
         output_file.close();
     }
 }
@@ -87,11 +89,20 @@ int main()
     std::cin >> current_bookmark_total_input;
     write_to_csv(get_current_date(), current_bookmark_total_input);
     std::cout << "\n";
-    // Print all existing rows.
     // TODO: Only show 20 most recent entries.
-    for (int i = 0; i < 20; i++)
+    if (temp_report.size() > 20)
     {
-        std::cout << temp_report[(temp_report.size() - 20) + i] << "\n";
+        for (int i = 20; i > 0; i--)
+        {
+            std::cout << temp_report[temp_report.size() - i] << "\n";
+        }
+    }
+    else if (temp_report.size() < 20)
+    {
+        for (int i = temp_report.size(); i > 0; i--)
+        {
+            std::cout << temp_report[temp_report.size() - i] << "\n";
+        }
     }
 }
 
