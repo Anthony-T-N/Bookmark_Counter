@@ -49,7 +49,6 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
     int difference = 0;
     // output file stream allows you to write contents to a file.
     std::ofstream output_file;
-    // TODO: Get location of bookmark record csv here.
     if (std::filesystem::exists("bookmark_record.csv") == false)
     {
         std::cout << "[!] Creating new bookmark_record.csv;" << "\n";
@@ -94,6 +93,12 @@ std::string user_input_validation()
 
 int main()
 {
+    std::cout << "=======================================" << "\n";
+    std::cout << "- Bookmark_Counter console application" << "\n";
+    std::cout << "- Console Application Version: 1.0" << "\n";
+    std::cout << "- Created By: Anthony N." << "\n";
+    std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
+    std::cout << "=======================================" << "\n\n";
     int current_bookmark_total_input = stoi(user_input_validation());
     write_to_csv(get_current_date(), current_bookmark_total_input);
     std::cout << "\n";
