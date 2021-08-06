@@ -99,24 +99,40 @@ int main()
     std::cout << "- Created By: Anthony N." << "\n";
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
-    int current_bookmark_total_input = stoi(user_input_validation());
-    write_to_csv(get_current_date(), current_bookmark_total_input);
-    std::cout << "\n";
-    if (temp_report.size() > 20)
+    
+    while (true)
     {
-        for (int i = 20; i > 0; i--)
+        // Note: Fails to valid very large numbers.
+        int current_bookmark_total_input = stoi(user_input_validation());
+        write_to_csv(get_current_date(), current_bookmark_total_input);
+        std::cout << "\n";
+        if (temp_report.size() > 20)
         {
-            std::cout << temp_report[temp_report.size() - i] << "\n";
+            for (int i = 20; i > 0; i--)
+            {
+                std::cout << temp_report[temp_report.size() - i] << "\n";
+            }
+        }
+        else if (temp_report.size() < 20)
+        {
+            for (int i = temp_report.size(); i > 0; i--)
+            {
+                std::cout << temp_report[temp_report.size() - i] << "\n";
+            }
+        }
+        std::cout << "\n";
+        std::cout << "> Undo ? (y/n): " << "\n";
+        std::string user_input;
+        std::getline(std::cin, user_input);
+        if (user_input == "n")
+        {
+            break;
+        }
+        else
+        {
+            // TODO: Remove last line of CSV file.
         }
     }
-    else if (temp_report.size() < 20)
-    {
-        for (int i = temp_report.size(); i > 0; i--)
-        {
-            std::cout << temp_report[temp_report.size() - i] << "\n";
-        }
-    }
-    std::cout << "\n";
     std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
     system("pause");
