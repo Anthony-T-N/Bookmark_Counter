@@ -41,6 +41,33 @@ int calculate_difference(int current_bookmark_total_input)
     return current_bookmark_total_input - stoi(last_input_line);
 }
 
+void remove_csv_last_line()
+{
+    std::cout << "Remove last line" << "\n";
+    
+    std::ifstream input_file;
+    input_file.open("bookmark_record.csv");
+    
+    std::ofstream output_file;
+    output_file.open("temp_record.csv");
+    
+    std::string input_file_line;
+    while (std::getline(input_file, input_file_line))
+    {
+        std::cout << input_file_line << "\n";
+        // TODO Fix here:
+        if (input_file.eof() == input_file_line)
+        {
+            std::cout << "Reach end" << "\n";
+        }
+        output_file << input_file_line << "\n";
+    }
+    input_file.close();
+    output_file.close();
+    //std::rename("temp_record.csv", "bookmark_record.csv");
+    // remove("temp_record.csv");
+}
+
 // TODO: Function to read from csv file.
 void write_to_csv(std::string current_date, int current_bookmark_total_input)
 {
@@ -121,7 +148,7 @@ int main()
             }
         }
         std::cout << "\n";
-        std::cout << "> Undo ? (y/n): " << "\n";
+        std::cout << "> Undo ? (y/n): ";
         std::string user_input;
         std::getline(std::cin, user_input);
         if (user_input == "n")
@@ -130,7 +157,7 @@ int main()
         }
         else
         {
-            // TODO: Remove last line of CSV file.
+            remove_csv_last_line();
         }
     }
     std::cout << "[!] END" << "\n";
