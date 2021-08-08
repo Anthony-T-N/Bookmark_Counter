@@ -52,20 +52,34 @@ void remove_csv_last_line()
     output_file.open("temp_record.csv");
     
     std::string input_file_line;
+    int line_counter = 0;
     while (std::getline(input_file, input_file_line))
     {
+        line_counter++;
+    }
+    // https://forums.codeguru.com/showthread.php?320724-how-to-reset-quot-getline(File-string)-quot
+    input_file.clear();
+    input_file.seekg(0, std::ios::beg);
+
+    std::cout << "COUNTER: " << line_counter << "\n";
+
+    int last_line = line_counter - 1;
+    line_counter = 0;
+    while (std::getline(input_file, input_file_line))
+    {
+        line_counter++;
         std::cout << input_file_line << "\n";
-        // TODO Fix here:
-        if (input_file.eof() == input_file_line)
+        if (last_line == line_counter)
         {
-            std::cout << "Reach end" << "\n";
+            std::cout << "[!] Skip last line;" << "\n";
+            break;
         }
         output_file << input_file_line << "\n";
     }
     input_file.close();
     output_file.close();
-    //std::rename("temp_record.csv", "bookmark_record.csv");
-    // remove("temp_record.csv");
+    std::rename("temp_record.csv", "bookmark_record.csv");
+    //remove("temp_record.csv");
 }
 
 // TODO: Function to read from csv file.
@@ -133,6 +147,7 @@ int main()
         int current_bookmark_total_input = stoi(user_input_validation());
         write_to_csv(get_current_date(), current_bookmark_total_input);
         std::cout << "\n";
+        std::cout << "[=== Report ===]"
         if (temp_report.size() > 20)
         {
             for (int i = 20; i > 0; i--)
