@@ -1,3 +1,8 @@
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Anthony-T-N/Bookmark_Counter)
+![C++](https://img.shields.io/badge/Language-C%2B%2B-ff69b4)
+![version](https://img.shields.io/badge/version-1.0.0-yellow.svg)
+![support](https://img.shields.io/badge/OS-Windows-orange.svg)
+
 # Bookmark_Counter
 
 - I somehow managed to accumulate up to 10,495 bookmarks on my default internet browser as of writing this sentence. 
