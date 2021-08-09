@@ -57,29 +57,37 @@ void remove_csv_last_line()
     {
         line_counter++;
     }
+
     // https://forums.codeguru.com/showthread.php?320724-how-to-reset-quot-getline(File-string)-quot
     input_file.clear();
     input_file.seekg(0, std::ios::beg);
-
-    std::cout << "COUNTER: " << line_counter << "\n";
 
     int last_line = line_counter - 1;
     line_counter = 0;
     while (std::getline(input_file, input_file_line))
     {
         line_counter++;
-        std::cout << input_file_line << "\n";
+        output_file << input_file_line << "\n";
         if (last_line == line_counter)
         {
             std::cout << "[!] Skip last line;" << "\n";
             break;
         }
-        output_file << input_file_line << "\n";
     }
     input_file.close();
     output_file.close();
-    std::rename("temp_record.csv", "bookmark_record.csv");
-    //remove("temp_record.csv");
+    remove("bookmark_record.csv");
+    int value = std::rename("temp_record.csv", "bookmark_record.csv");
+    // Print the result
+    if (!value)
+    {
+        std::cout << "[+] File name changed successfully" << "\n";
+    }
+    else
+    {
+        std::cout << "[-] Error" << "\n";
+    }
+    
 }
 
 // TODO: Function to read from csv file.
@@ -147,7 +155,7 @@ int main()
         int current_bookmark_total_input = stoi(user_input_validation());
         write_to_csv(get_current_date(), current_bookmark_total_input);
         std::cout << "\n";
-        std::cout << "[=== Report ===]"
+        std::cout << "[=== Report ===]" << "\n";
         if (temp_report.size() > 20)
         {
             for (int i = 20; i > 0; i--)
@@ -166,14 +174,15 @@ int main()
         std::cout << "> Undo ? (y/n): ";
         std::string user_input;
         std::getline(std::cin, user_input);
-        if (user_input == "n")
-        {
-            break;
-        }
-        else
+        if (user_input == "y")
         {
             remove_csv_last_line();
         }
+        else
+        {
+            break;
+        }
+        temp_report.clear();
     }
     std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
