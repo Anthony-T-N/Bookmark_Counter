@@ -76,16 +76,23 @@ void remove_csv_last_line()
     }
     input_file.close();
     output_file.close();
-    remove("bookmark_record.csv");
+    if (remove("bookmark_record.csv") == 0)
+    {
+        std::cout << "[+] Filename deleted successfully" << "\n";
+    }
+    else
+    {
+        std::cout << "[-] Error with deletion" << "\n";
+    }
     int value = std::rename("temp_record.csv", "bookmark_record.csv");
     // Print the result
     if (!value)
     {
-        std::cout << "[+] File name changed successfully" << "\n";
+        std::cout << "[+] Filename changed successfully" << "\n";
     }
     else
     {
-        std::cout << "[-] Error" << "\n";
+        std::cout << "[-] Error with filename change" << "\n";
     }
     
 }
@@ -129,7 +136,7 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
 
 std::string user_input_validation()
 {
-    std::cout << "> Enter current total: ";
+    std::cout << "> Enter current total (int): ";
     std::string user_input;
     std::getline(std::cin, user_input);
     while (std::cin.fail() || user_input.find_first_not_of("0123456789") != std::string::npos || user_input.empty())
@@ -151,11 +158,11 @@ int main()
     
     while (true)
     {
-        // Note: Fails to valid very large numbers.
+        // Note: Fails to validate very large numbers.
         int current_bookmark_total_input = stoi(user_input_validation());
         write_to_csv(get_current_date(), current_bookmark_total_input);
         std::cout << "\n";
-        std::cout << "[=== Report ===]" << "\n";
+        std::cout << "[========== Report ==========]" << "\n";
         if (temp_report.size() > 20)
         {
             for (int i = 20; i > 0; i--)
@@ -171,7 +178,7 @@ int main()
             }
         }
         std::cout << "\n";
-        std::cout << "> Undo ? (y/n): ";
+        std::cout << "> Undo ? (y): ";
         std::string user_input;
         std::getline(std::cin, user_input);
         if (user_input == "y")
