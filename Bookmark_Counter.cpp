@@ -38,6 +38,8 @@ int calculate_difference(int current_bookmark_total_input)
     input_file.close();
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
     last_input_line.erase(last_input_line.find_last_of(","), last_input_line.length());
+    // Unhandled exception here: Error when only data in csv file is sub-headings or file is empty.
+    // Another unhandled excpetion here when 1st entry is undone.
     return current_bookmark_total_input - stoi(last_input_line);
 }
 
@@ -79,22 +81,24 @@ void remove_csv_last_line()
     if (remove("bookmark_record.csv") == 0)
     {
         std::cout << "[+] Filename deleted successfully" << "\n";
+        std::cout << "\"bookmark_record.csv\" deleted" << "\n\n";
     }
     else
     {
-        std::cout << "[-] Error with deletion" << "\n";
+        std::cout << "[-] Error with deletion" << "\n\n";
     }
     int value = std::rename("temp_record.csv", "bookmark_record.csv");
     // Print the result
     if (!value)
     {
         std::cout << "[+] Filename changed successfully" << "\n";
+        std::cout << "temp_record.csv > bookmark_record.csv" << "\n\n";
     }
     else
     {
         std::cout << "[-] Error with filename change" << "\n";
+        std::cout << "temp_record.csv !> bookmark_record.csv" << "\n\n";
     }
-    
 }
 
 // TODO: Function to read from csv file.
