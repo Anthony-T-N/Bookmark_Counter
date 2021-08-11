@@ -13,6 +13,9 @@ Overview
 
 How It Works
 -
+Console application accepts a number.
+Converted as a entry with corresponding date
+Stored as a row in csv file.
 
 Usage Overview
 -
