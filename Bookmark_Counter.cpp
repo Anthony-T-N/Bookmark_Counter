@@ -39,7 +39,6 @@ int calculate_difference(int current_bookmark_total_input)
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
     last_input_line.erase(last_input_line.find_last_of(","), last_input_line.length());
     // Unhandled exception here: Error when only data in csv file is sub-headings or file is empty.
-    // Another unhandled excpetion here when 1st entry is undone.
     return current_bookmark_total_input - stoi(last_input_line);
 }
 
@@ -102,7 +101,7 @@ void remove_csv_last_line()
 }
 
 // TODO: Function to read from csv file.
-void write_to_csv(std::string current_date, int current_bookmark_total_input)
+int write_to_csv(std::string current_date, int current_bookmark_total_input)
 {
     // Function uses: <iostream>, <fstream>, <filesystem>
 
@@ -122,6 +121,7 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
         temp_report.push_back(current_date + "," + std::to_string(current_bookmark_total_input) + "," + std::to_string(difference));
         output_file.close();
+        return 0;
     }
     else
     {
@@ -135,6 +135,7 @@ void write_to_csv(std::string current_date, int current_bookmark_total_input)
         output_file << current_date << "," << current_bookmark_total_input << "," << difference << "\n";
         temp_report.push_back(current_date + "," + std::to_string(current_bookmark_total_input) + "," + std::to_string(difference));
         output_file.close();
+        return 1;
     }
 }
 
@@ -164,7 +165,7 @@ int main()
     {
         // Note: Fails to validate very large numbers.
         int current_bookmark_total_input = stoi(user_input_validation());
-        write_to_csv(get_current_date(), current_bookmark_total_input);
+        int first_csv = write_to_csv(get_current_date(), current_bookmark_total_input);
         std::cout << "\n";
         std::cout << "[========== Report ==========]" << "\n";
         if (temp_report.size() > 20)
@@ -182,12 +183,19 @@ int main()
             }
         }
         std::cout << "\n";
-        std::cout << "> Undo ? (y): ";
-        std::string user_input;
-        std::getline(std::cin, user_input);
-        if (user_input == "y")
+        if (first_csv == 1)
         {
-            remove_csv_last_line();
+            std::cout << "> Undo ? (y): ";
+            std::string user_input;
+            std::getline(std::cin, user_input);
+            if (user_input == "y")
+            {
+                remove_csv_last_line();
+            }
+            else
+            {
+                break;
+            }
         }
         else
         {
