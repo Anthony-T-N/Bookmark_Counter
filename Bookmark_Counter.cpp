@@ -33,9 +33,18 @@ int calculate_difference(int current_bookmark_total_input)
     while (std::getline(input_file, input_file_line))
     {
         last_input_line = input_file_line;
+        // Temp line
+        std::cout << "[Debug]" << input_file_line << "\n";
         temp_report.push_back(input_file_line);
     }
     input_file.close();
+    // Temp line
+    std::cout << temp_report.size() << "\n";
+    if (temp_report.size() <= 1 || temp_report[0] == "" || temp_report[0] == "")
+    {
+        std::cout << "Broke" << "\n";
+        return 0;
+    }
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
     last_input_line.erase(last_input_line.find_last_of(","), last_input_line.length());
     // Unhandled exception here: Error when only data in csv file is sub-headings or file is empty.
@@ -146,7 +155,7 @@ std::string user_input_validation()
     std::getline(std::cin, user_input);
     while (std::cin.fail() || user_input.find_first_not_of("0123456789") != std::string::npos || user_input.empty())
     {
-        std::cout << "[-] Incorrect input - Please try again: ";
+        std::cout << "[-] Invalid input - Please try again: ";
         std::getline(std::cin, user_input);
     }
     return user_input;
