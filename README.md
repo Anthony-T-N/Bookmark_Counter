@@ -7,9 +7,7 @@
 
 Overview
 -
-- I somehow managed to accumulate up to 10,495 bookmarks on my default internet browser as of writing this sentence. 
-- It would appear I've bookmarked anything I considered remotely interesting and never found the time to go through them.
-- Which is why I've created this console application to assist me with keeping track of the total number of bookmarks I have per day. 
+I somehow managed to accumulate up to 10,495 bookmarks on my default internet browser as of writing this sentence. It would appear I've bookmarked anything I considered remotely interesting and never found the time to go through them. Which is why I've created this console application to assist me with keeping track of the total number of bookmarks I have per day and have data better organised which I hope to use later to create graphs 
 
 How It Works
 -
@@ -19,3 +17,4 @@ Stored as a row in csv file.
 
 Usage Overview
 -
+Upon execution of the application. Simply enter a number.
