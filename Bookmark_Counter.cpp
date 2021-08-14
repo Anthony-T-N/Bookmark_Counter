@@ -34,16 +34,21 @@ int calculate_difference(int current_bookmark_total_input)
     {
         last_input_line = input_file_line;
         // Temp line
-        std::cout << "[Debug]" << input_file_line << "\n";
+        std::cout << "[Debug]: " << input_file_line << "\n";
         temp_report.push_back(input_file_line);
     }
     input_file.close();
     // Temp line
     std::cout << temp_report.size() << "\n";
-    if (temp_report.size() <= 1 || temp_report[0] == "" || temp_report[0] == "")
+
+    for (double i = 0; i <= temp_report.size() - 1; i++)
     {
-        std::cout << "Broke" << "\n";
-        return 0;
+        if (temp_report[i] == "" || temp_report[i] == " " || temp_report[i] == ",,")
+        {
+            std::cout << "[-] Empty row located;" << "\n";
+            std::cout << "[!] Recommendation: Delete existing csv file or fix empty row;" << "\n";
+            return 0;
+        }
     }
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
     last_input_line.erase(last_input_line.find_last_of(","), last_input_line.length());
