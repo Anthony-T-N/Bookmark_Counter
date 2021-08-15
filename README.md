@@ -15,10 +15,10 @@ Console application accepts a number (Example: Total number of bookmarks for the
 The difference is calculated between the current and previous totals. Converted as a entry with corresponding date.
 Stored as a row in csv file.
 
-Structure of data in csv file:
-Date       | Total  | Difference
-2021.07.30 | 10,123 | -6
-2021.07.31 | 10,133 | +10
+- Structure of data in csv file:
+- Date       | Total  | Difference
+- 2021.07.30 | 10,123 | -6
+- 2021.07.31 | 10,133 | +10
 
 Usage Overview
 -
