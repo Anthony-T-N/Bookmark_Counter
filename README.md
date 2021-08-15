@@ -11,9 +11,9 @@ I somehow managed to accumulate up to 10,495 bookmarks on my default internet br
 
 How It Works
 -
-Console application accepts a number (Example: Total number of bookmarks for the current day).
-The difference is calculated between the current and previous totals. Converted as a entry with corresponding date.
-Stored as a row in csv file.
+- The console application accepts a number (Example: Total number of bookmarks for the current day).
+- The difference is calculated between the current and previous totals. Which is then converted as a entry with corresponding date.
+- Stored as a row in a csv file.
 
 - Structure of data in csv file:
 - Date       | Total  | Difference
@@ -23,3 +23,4 @@ Stored as a row in csv file.
 Usage Overview
 -
 Upon execution of the application. Simply enter a number.
+Option to undo changes and re-enter a different number.
