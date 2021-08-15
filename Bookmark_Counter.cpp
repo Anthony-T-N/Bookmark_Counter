@@ -217,12 +217,3 @@ int main()
     std::cout << "[!] Exiting..." << "\n\n";
     return 0;
 }
-
-// Each day, enter total number of bookmarks after each session of cleaning bookmarks.
-// Program will store, process and calculate the difference.
-// Stores the total value in a csv file which can be used to make graphs. 
-
-// Data structure in csv file:
-// Date       | Total  | Difference
-// 2021.07.30 | 10,123 | -6
-// 2021.07.31 | 10,133 | +10
