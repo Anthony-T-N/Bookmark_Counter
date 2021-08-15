@@ -33,26 +33,21 @@ int calculate_difference(int current_bookmark_total_input)
     while (std::getline(input_file, input_file_line))
     {
         last_input_line = input_file_line;
-        // Temp line
-        std::cout << "[Debug]: " << input_file_line << "\n";
         temp_report.push_back(input_file_line);
     }
     input_file.close();
-    // Temp line
-    std::cout << temp_report.size() << "\n";
 
     for (double i = 0; i <= temp_report.size() - 1; i++)
     {
         if (temp_report[i] == "" || temp_report[i] == " " || temp_report[i] == ",,")
         {
-            std::cout << "[-] Empty row located;" << "\n";
+            std::cout << "[-] ATTENTION: Empty row located;" << "\n";
             std::cout << "[!] Recommendation: Delete existing csv file or fix empty row;" << "\n";
             return 0;
         }
     }
     last_input_line.erase(0, last_input_line.find_first_of(",") + 1);
     last_input_line.erase(last_input_line.find_last_of(","), last_input_line.length());
-    // Unhandled exception here: Error when only data in csv file is sub-headings or file is empty.
     return current_bookmark_total_input - stoi(last_input_line);
 }
 
@@ -197,6 +192,7 @@ int main()
             }
         }
         std::cout << "\n";
+        // No option to undo changes for newly created CSV files.
         if (first_csv == 1)
         {
             std::cout << "> Undo ? (y): ";
@@ -219,7 +215,6 @@ int main()
     }
     std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
-    system("pause");
     return 0;
 }
 
