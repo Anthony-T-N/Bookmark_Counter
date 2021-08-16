@@ -24,7 +24,7 @@ std::string get_current_date()
 
 int calculate_difference(int current_bookmark_total_input)
 {
-    // Function uses: <iostream>, <fstream>, <string>
+    // Function uses: <iostream>, <fstream>, <string>, <filesystem>
 
     std::ifstream input_file;
     input_file.open("bookmark_record.csv");
@@ -53,6 +53,8 @@ int calculate_difference(int current_bookmark_total_input)
 
 void remove_csv_last_line()
 {
+    // Function uses: <iostream>, <fstream>
+
     std::cout << "[!] Removing last line" << "\n";
     
     std::ifstream input_file;
@@ -96,7 +98,6 @@ void remove_csv_last_line()
         std::cout << "[-] Error with deletion" << "\n\n";
     }
     int value = std::rename("temp_record.csv", "bookmark_record.csv");
-    // Print the result
     if (!value)
     {
         std::cout << "[+] Filename renamed successfully" << "\n";
@@ -109,7 +110,6 @@ void remove_csv_last_line()
     }
 }
 
-// TODO: Function to read from csv file.
 int write_to_csv(std::string current_date, int current_bookmark_total_input)
 {
     // Function uses: <iostream>, <fstream>, <filesystem>
@@ -150,6 +150,8 @@ int write_to_csv(std::string current_date, int current_bookmark_total_input)
 
 std::string user_input_validation()
 {
+    // Function uses: <iostream>,
+
     std::cout << "> Enter current total (int): ";
     std::string user_input;
     std::getline(std::cin, user_input);
