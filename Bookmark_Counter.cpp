@@ -53,7 +53,7 @@ int calculate_difference(int current_bookmark_total_input)
 
 void remove_csv_last_line()
 {
-    std::cout << "Remove last line" << "\n";
+    std::cout << "[!] Removing last line" << "\n";
     
     std::ifstream input_file;
     input_file.open("bookmark_record.csv");
@@ -99,7 +99,7 @@ void remove_csv_last_line()
     // Print the result
     if (!value)
     {
-        std::cout << "[+] Filename changed successfully" << "\n";
+        std::cout << "[+] Filename renamed successfully" << "\n";
         std::cout << "temp_record.csv > bookmark_record.csv" << "\n\n";
     }
     else
@@ -173,6 +173,7 @@ int main()
     while (true)
     {
         // Note: Fails to validate very large numbers.
+        // Above 2147483647 to be exact.
         int current_bookmark_total_input = stoi(user_input_validation());
         int first_csv = write_to_csv(get_current_date(), current_bookmark_total_input);
         std::cout << "\n";
